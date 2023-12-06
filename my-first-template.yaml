@@ -1,7 +1,28 @@
-AWSTemplateFormatVersion: 2010-09-09
+AWSTemplateFormatVersion: "2010-09-09"
 Description: >
   This is my first 
   template for 
   using CloudFormation.
   
 Resources:
+  EkremInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0230bd60aa48260c6
+      InstanceType: t2.micro
+      KeyName: firstkey
+      SecurityGroups: 
+        - !Ref DefaultSecGroup
+      Tags: 
+        - Key: Name 
+          Value: Ekrem-Yaml-Example
+
+  DefaultSecGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow only SSH connection  # Required
+      SecurityGroupIngress: 
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
